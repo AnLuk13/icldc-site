@@ -1,0 +1,58 @@
+{
+  "navigation": {
+    "home": "ACASĂ",
+    "about": "DESPRE INSTITUT",
+    "projects": "PROIECTELE NOASTRE",
+    "partners": "PARTENERI",
+    "events": "EVENIMENTE",
+    "contact": "CONTACTE"
+  },
+  "home": {
+    "title": "Bine ați venit la ICLDC",
+    "subtitle": "Institutul pentru Cercetare și Dezvoltare Culturală",
+    "description": "Promovăm cultura și tradițiile prin cercetare și inovație.",
+    "learnMore": "Aflați mai multe"
+  },
+  "about": {
+    "title": "Despre Institut",
+    "description": "ICLDC este o instituție dedicată cercetării și dezvoltării culturale, cu focus pe preservarea și promovarea patrimoniului cultural.",
+    "mission": "Misiunea noastră",
+    "missionText": "Să contribuim la dezvoltarea culturală prin cercetare de calitate și proiecte inovatoare.",
+    "vision": "Viziunea noastră",
+    "visionText": "Să fim un centru de excelență în cercetarea culturală la nivel regional și internațional."
+  },
+  "projects": {
+    "title": "Proiectele Noastre",
+    "description": "Explorați proiectele noastre de cercetare și dezvoltare culturală.",
+    "currentProjects": "Proiecte Curente",
+    "completedProjects": "Proiecte Finalizate"
+  },
+  "partners": {
+    "title": "Partenerii Noștri",
+    "description": "Colaborăm cu instituții de prestigiu pentru a atinge obiectivele noastre comune.",
+    "academic": "Parteneri Academici",
+    "institutional": "Parteneri Instituționali"
+  },
+  "events": {
+    "title": "Evenimente",
+    "description": "Rămâneți la curent cu evenimentele și activitățile noastre.",
+    "upcoming": "Evenimente Viitoare",
+    "past": "Evenimente Trecute"
+  },
+  "contact": {
+    "title": "Contacte",
+    "description": "Luați legătura cu noi pentru mai multe informații.",
+    "address": "Adresă",
+    "phone": "Telefon",
+    "email": "Email",
+    "form": {
+      "name": "Nume",
+      "email": "Email",
+      "subject": "Subiect",
+      "message": "Mesaj",
+      "send": "Trimite",
+      "success": "Mesajul a fost trimis cu succes!",
+      "error": "A apărut o eroare. Vă rugăm să încercați din nou."
+    }
+  }
+}

@@ -1,0 +1,64 @@
+@import '../../../styles/variables';
+
+.about {
+  min-height: calc(100vh - $navbar-height);
+}
+
+.header {
+  text-align: center;
+  margin-bottom: $spacing-2xl;
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.title {
+  font-size: $font-size-3xl;
+  font-weight: 700;
+  color: #1f2937;
+  margin-bottom: $spacing-lg;
+
+  @media (min-width: $breakpoint-md) {
+    font-size: 3rem;
+  }
+}
+
+.description {
+  font-size: $font-size-lg;
+  color: #6b7280;
+  line-height: 1.7;
+}
+
+.content {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: $spacing-2xl;
+
+  @media (min-width: $breakpoint-md) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.card {
+  background: white;
+  padding: $spacing-2xl;
+  border-radius: 12px;
+  box-shadow: $shadow-md;
+  transition: $transition-normal;
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: $shadow-lg;
+  }
+
+  h2 {
+    font-size: $font-size-2xl;
+    margin-bottom: $spacing-lg;
+  }
+
+  p {
+    color: #6b7280;
+    line-height: 1.7;
+    font-size: $font-size-lg;
+  }
+}

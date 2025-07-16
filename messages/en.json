@@ -1,0 +1,58 @@
+{
+  "navigation": {
+    "home": "HOME",
+    "about": "ABOUT INSTITUTE",
+    "projects": "OUR PROJECTS",
+    "partners": "PARTNERS",
+    "events": "EVENTS",
+    "contact": "CONTACT"
+  },
+  "home": {
+    "title": "Welcome to ICLDC",
+    "subtitle": "Institute for Cultural Research and Development",
+    "description": "We promote culture and traditions through research and innovation.",
+    "learnMore": "Learn More"
+  },
+  "about": {
+    "title": "About the Institute",
+    "description": "ICLDC is an institution dedicated to cultural research and development, focusing on preserving and promoting cultural heritage.",
+    "mission": "Our Mission",
+    "missionText": "To contribute to cultural development through quality research and innovative projects.",
+    "vision": "Our Vision",
+    "visionText": "To be a center of excellence in cultural research at regional and international levels."
+  },
+  "projects": {
+    "title": "Our Projects",
+    "description": "Explore our cultural research and development projects.",
+    "currentProjects": "Current Projects",
+    "completedProjects": "Completed Projects"
+  },
+  "partners": {
+    "title": "Our Partners",
+    "description": "We collaborate with prestigious institutions to achieve our common goals.",
+    "academic": "Academic Partners",
+    "institutional": "Institutional Partners"
+  },
+  "events": {
+    "title": "Events",
+    "description": "Stay updated with our events and activities.",
+    "upcoming": "Upcoming Events",
+    "past": "Past Events"
+  },
+  "contact": {
+    "title": "Contact",
+    "description": "Get in touch with us for more information.",
+    "address": "Address",
+    "phone": "Phone",
+    "email": "Email",
+    "form": {
+      "name": "Name",
+      "email": "Email",
+      "subject": "Subject",
+      "message": "Message",
+      "send": "Send",
+      "success": "Message sent successfully!",
+      "error": "An error occurred. Please try again."
+    }
+  }
+}

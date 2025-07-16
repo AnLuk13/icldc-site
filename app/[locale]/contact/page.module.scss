@@ -1,0 +1,142 @@
+@import '../../../styles/variables';
+
+.contact {
+  min-height: calc(100vh - $navbar-height);
+}
+
+.header {
+  text-align: center;
+  margin-bottom: $spacing-2xl;
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.title {
+  font-size: $font-size-3xl;
+  font-weight: 700;
+  color: #1f2937;
+  margin-bottom: $spacing-lg;
+
+  @media (min-width: $breakpoint-md) {
+    font-size: 3rem;
+  }
+}
+
+.description {
+  font-size: $font-size-lg;
+  color: #6b7280;
+  line-height: 1.7;
+}
+
+.contactContent {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: $spacing-2xl;
+
+  @media (min-width: $breakpoint-lg) {
+    grid-template-columns: 1fr 2fr;
+  }
+}
+
+.contactInfo {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-lg;
+}
+
+.infoCard {
+  background: white;
+  padding: $spacing-xl;
+  border-radius: 12px;
+  box-shadow: $shadow-md;
+
+  h3 {
+    font-size: $font-size-lg;
+    margin-bottom: $spacing-md;
+  }
+
+  p {
+    color: #6b7280;
+    line-height: 1.6;
+  }
+}
+
+.contactForm {
+  background: white;
+  padding: $spacing-2xl;
+  border-radius: 12px;
+  box-shadow: $shadow-md;
+}
+
+.formGroup {
+  margin-bottom: $spacing-lg;
+
+  label {
+    display: block;
+    margin-bottom: $spacing-sm;
+    font-weight: 500;
+    color: #374151;
+  }
+
+  input,
+  textarea {
+    width: 100%;
+    padding: $spacing-md;
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+    font-size: $font-size-base;
+    transition: $transition-fast;
+
+    &:focus {
+      outline: none;
+      border-color: $accent-color;
+      box-shadow: 0 0 0 3px rgba($accent-color, 0.1);
+    }
+  }
+
+  textarea {
+    resize: vertical;
+    min-height: 120px;
+  }
+}
+
+.submitButton {
+  background: $accent-color;
+  color: white;
+  padding: $spacing-md $spacing-2xl;
+  border: none;
+  border-radius: 8px;
+  font-size: $font-size-lg;
+  font-weight: 600;
+  cursor: pointer;
+  transition: $transition-normal;
+  width: 100%;
+
+  &:hover:not(:disabled) {
+    background: darken($accent-color, 10%);
+  }
+
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+}
+
+.successMessage {
+  margin-top: $spacing-lg;
+  padding: $spacing-md;
+  background: #d1fae5;
+  color: #065f46;
+  border-radius: 8px;
+  text-align: center;
+}
+
+.errorMessage {
+  margin-top: $spacing-lg;
+  padding: $spacing-md;
+  background: #fee2e2;
+  color: #dc2626;
+  border-radius: 8px;
+  text-align: center;
+}
