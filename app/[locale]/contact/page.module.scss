@@ -1,7 +1,9 @@
-@import '../../../styles/variables';
+@use "sass:color";
+@use "../../../styles/variables" as *;
+@use "../../../styles/mixins" as *;
 
 .contact {
-  min-height: calc(100vh - $navbar-height);
+  @include page-base;
 }
 
 .header {
@@ -15,7 +17,7 @@
 .title {
   font-size: $font-size-3xl;
   font-weight: 700;
-  color: #1f2937;
+  color: var(--text-primary);
   margin-bottom: $spacing-lg;
 
   @media (min-width: $breakpoint-md) {
@@ -46,24 +48,25 @@
 }
 
 .infoCard {
-  background: white;
+  background: var(--bg-secondary);
   padding: $spacing-xl;
   border-radius: 12px;
   box-shadow: $shadow-md;
 
   h3 {
+    color: var(--text-primary);
     font-size: $font-size-lg;
     margin-bottom: $spacing-md;
   }
 
   p {
-    color: #6b7280;
+    color: var(--text-secondary);
     line-height: 1.6;
   }
 }
 
 .contactForm {
-  background: white;
+  background: var(--bg-secondary);
   padding: $spacing-2xl;
   border-radius: 12px;
   box-shadow: $shadow-md;
@@ -76,7 +79,7 @@
     display: block;
     margin-bottom: $spacing-sm;
     font-weight: 500;
-    color: #374151;
+    color: #var(--text-primary);
   }
 
   input,
@@ -114,7 +117,7 @@
   width: 100%;
 
   &:hover:not(:disabled) {
-    background: darken($accent-color, 10%);
+    background: color.adjust($accent-color, $lightness: -10%);
   }
 
   &:disabled {

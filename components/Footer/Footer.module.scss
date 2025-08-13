@@ -1,0 +1,141 @@
+@use "../../styles/variables" as *;
+@use "../../styles/mixins" as *;
+
+.footer {
+  //   @include page-base;
+  background: var(--bg-primary);
+  border-top: 1px solid var(--border-color);
+  padding: $spacing-xl 0;
+  margin-top: auto;
+  transition: all 0.3s ease;
+}
+
+.footerContent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: $spacing-lg;
+  text-align: center;
+
+  @media (min-width: $breakpoint-md) {
+    flex-direction: row;
+    justify-content: space-between;
+    text-align: left;
+  }
+}
+
+.footerText {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: $spacing-sm;
+  color: var(--text-secondary);
+  font-size: $font-size-base;
+
+  @media (min-width: $breakpoint-md) {
+    flex-direction: row;
+    gap: $spacing-md;
+  }
+
+  span:first-child {
+    font-weight: 400;
+  }
+}
+
+.developerLink {
+  display: flex;
+  align-items: center;
+  gap: $spacing-sm;
+  color: var(--text-primary);
+  text-decoration: none;
+  padding: $spacing-xs $spacing-sm;
+  border-radius: 6px;
+  transition: all 0.2s ease;
+  font-weight: 500;
+
+  &:hover {
+    color: var(--accent-color);
+    background: var(--bg-secondary);
+    transform: translateY(-1px);
+  }
+
+  &:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px var(--accent-color);
+  }
+}
+
+.developerName {
+  font-weight: 600;
+  color: inherit;
+}
+
+.linkedinIcon {
+  color: #0077b5; // LinkedIn brand color
+  transition: all 0.2s ease;
+
+  .developerLink:hover & {
+    color: #005885; // Darker LinkedIn color on hover
+    transform: scale(1.1);
+  }
+}
+
+.footerDivider {
+  width: 100%;
+  height: 1px;
+  background: var(--border-color);
+  opacity: 0.5;
+
+  @media (min-width: $breakpoint-md) {
+    width: 1px;
+    height: 24px;
+    background: var(--border-color);
+  }
+}
+
+.copyright {
+  color: var(--text-secondary);
+  font-size: $font-size-base;
+  font-weight: 400;
+  opacity: 0.8;
+
+  span {
+    display: inline-block;
+  }
+}
+
+// Dark mode specific adjustments
+:global([data-theme="dark"]) .footer {
+  background: var(--bg-primary);
+  border-top-color: var(--border-color);
+
+  .linkedinIcon {
+    color: #58a6dc; // Lighter LinkedIn color for dark mode
+
+    .developerLink:hover & {
+      color: #ffffff;
+    }
+  }
+}
+
+// Light mode specific adjustments
+:global([data-theme="light"]) .footer {
+  background: var(--bg-primary);
+  border-top-color: var(--border-color);
+}
+
+// Add some subtle animations
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.footerContent {
+  animation: fadeInUp 0.6s ease-out;
+}

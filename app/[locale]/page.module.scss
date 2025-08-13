@@ -1,29 +1,50 @@
-@import '../../styles/variables';
+@use "sass:color";
+@use "../../styles/variables" as *;
+@use "../../styles/mixins" as *;
 
 .home {
-  min-height: calc(100vh - $navbar-height);
+  @include page-base;
 }
 
 .hero {
-  background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   padding: 4rem 0;
   text-align: center;
+  overflow: hidden;
 
   @media (min-width: $breakpoint-md) {
     padding: 6rem 0;
   }
 }
 
+.videoHero {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
 .heroContent {
+  position: relative;
+  z-index: 5;
   max-width: 800px;
   margin: 0 auto;
+
+  // Ensure content is readable over video
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
 }
 
 .title {
   font-size: $font-size-3xl;
   font-weight: 700;
-  color: #1f2937;
+  color: white;
   margin-bottom: $spacing-lg;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);
 
   @media (min-width: $breakpoint-md) {
     font-size: 3rem;
@@ -32,9 +53,10 @@
 
 .subtitle {
   font-size: $font-size-xl;
-  color: $accent-color;
+  color: #ffd700; // Use a bright color that stands out on video
   font-weight: 600;
   margin-bottom: $spacing-lg;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);
 
   @media (min-width: $breakpoint-md) {
     font-size: $font-size-2xl;
@@ -43,9 +65,10 @@
 
 .description {
   font-size: $font-size-lg;
-  color: #6b7280;
+  color: rgba(255, 255, 255, 0.9);
   margin-bottom: $spacing-2xl;
   line-height: 1.7;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
 }
 
 .ctaButton {
@@ -58,10 +81,14 @@
   font-weight: 600;
   cursor: pointer;
   transition: $transition-normal;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
 
   &:hover {
-    background: darken($accent-color, 10%);
+    background: color.adjust($accent-color, $lightness: -10%);
     transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
   }
 }
 
@@ -78,7 +105,7 @@
 .feature {
   text-align: center;
   padding: $spacing-xl;
-  background: white;
+  background: var(--bg-secondary);
   border-radius: 12px;
   box-shadow: $shadow-md;
   transition: $transition-normal;
@@ -89,13 +116,13 @@
   }
 
   h3 {
-    color: $accent-color;
+    color: var(--text-primary);
     font-size: $font-size-xl;
     margin-bottom: $spacing-md;
   }
 
   p {
-    color: #6b7280;
+    color: var(--text-secondary);
     line-height: 1.6;
   }
 }

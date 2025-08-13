@@ -1,7 +1,8 @@
-@import '../../../styles/variables';
+@use "../../../styles/variables" as *;
+@use "../../../styles/mixins" as *;
 
 .projects {
-  min-height: calc(100vh - $navbar-height);
+  @include page-base;
 }
 
 .header {
@@ -15,7 +16,7 @@
 .title {
   font-size: $font-size-3xl;
   font-weight: 700;
-  color: #1f2937;
+  color: var(--text-primary);
   margin-bottom: $spacing-lg;
 
   @media (min-width: $breakpoint-md) {
@@ -57,7 +58,7 @@
 }
 
 .projectCard {
-  background: white;
+  background: var(--bg-secondary);
   padding: $spacing-xl;
   border-radius: 12px;
   box-shadow: $shadow-md;
@@ -70,13 +71,13 @@
   }
 
   h3 {
-    color: #1f2937;
+    color: var(--text-primary);
     font-size: $font-size-xl;
     margin-bottom: $spacing-md;
   }
 
   p {
-    color: #6b7280;
+    color: var(--text-secondary);
     line-height: 1.6;
     margin-bottom: $spacing-lg;
   }

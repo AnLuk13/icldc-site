@@ -1,0 +1,97 @@
+@use "../../styles/variables" as *;
+
+.mobileMenuIcon {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 4px;
+  cursor: pointer;
+  border-radius: 4px;
+  width: 40px;
+  height: 40px;
+  box-sizing: border-box;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: white;
+  transition: all 0.2s ease;
+  padding: 0;
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.2);
+  }
+
+  &:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px var(--accent-color);
+  }
+
+  @media (min-width: $breakpoint-lg) {
+    display: none !important;
+  }
+
+  // Theme-aware styles when not on colored background
+  :global([data-theme="light"]) & {
+    background: var(--bg-primary);
+    border: 1px solid var(--border-color);
+
+    &:hover {
+      background: var(--bg-secondary);
+    }
+
+    div {
+      background: var(--text-primary);
+    }
+  }
+
+  :global([data-theme="dark"]) & {
+    background: var(--bg-primary);
+    border: 1px solid var(--border-color);
+
+    &:hover {
+      background: var(--bg-secondary);
+    }
+
+    div {
+      background: var(--text-primary);
+    }
+  }
+
+  div {
+    background: white;
+    border-radius: 0.5rem;
+    height: 2px;
+    transition: all 0.3s ease;
+    width: 18px;
+    transform-origin: center;
+  }
+
+  .firstBar,
+  .secondBar,
+  .thirdBar {
+    background: white;
+    border-radius: 0.5rem;
+    height: 2px;
+    transition: all 0.3s ease;
+    width: 18px;
+    transform-origin: center;
+  }
+
+  &.active {
+    gap: 0;
+
+    .firstBar {
+      transform: rotate(45deg) translate(0, 3px);
+    }
+
+    .secondBar {
+      opacity: 0;
+      transform: scaleX(0);
+    }
+
+    .thirdBar {
+      transform: rotate(-45deg) translate(0, -3px);
+    }
+  }
+}

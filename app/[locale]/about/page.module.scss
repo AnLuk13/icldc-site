@@ -1,7 +1,8 @@
-@import '../../../styles/variables';
+@use "../../../styles/variables" as *;
+@use "../../../styles/mixins" as *;
 
 .about {
-  min-height: calc(100vh - $navbar-height);
+  @include page-base;
 }
 
 .header {
@@ -15,7 +16,7 @@
 .title {
   font-size: $font-size-3xl;
   font-weight: 700;
-  color: #1f2937;
+  color: var(--text-primary);
   margin-bottom: $spacing-lg;
 
   @media (min-width: $breakpoint-md) {
@@ -40,7 +41,7 @@
 }
 
 .card {
-  background: white;
+  background: var(--bg-secondary);
   padding: $spacing-2xl;
   border-radius: 12px;
   box-shadow: $shadow-md;
@@ -57,7 +58,7 @@
   }
 
   p {
-    color: #6b7280;
+    color: var(--text-secondary);
     line-height: 1.7;
     font-size: $font-size-lg;
   }

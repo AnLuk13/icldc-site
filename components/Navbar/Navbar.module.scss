@@ -1,9 +1,18 @@
-@import '../../styles/variables';
+@use "../../styles/variables" as *;
 
 .navbar {
-  background: linear-gradient(90deg, $moldovan-red 0%, $moldovan-yellow 50%, $moldovan-blue 100%);
+  background: var(--bg-primary);
+  // background: linear-gradient(
+  //   90deg,
+  //   $moldovan-blue 0%,
+  //   $moldovan-yellow 50%,
+  //   $moldovan-red 100%
+  // );
   height: $navbar-height;
-  position: sticky;
+  border-bottom: 1px solid var(--border-color);
+  transition: border-color 0.3s ease;
+  position: fixed;
+  width: 100%;
   top: 0;
   z-index: 1000;
   box-shadow: $shadow-md;
@@ -17,6 +26,7 @@
   max-width: $container-max-width;
   margin: 0 auto;
   padding: 0 $spacing-md;
+  gap: $spacing-lg;
 
   @media (min-width: $breakpoint-md) {
     padding: 0 $spacing-xl;
@@ -27,25 +37,28 @@
   display: flex;
   align-items: center;
   gap: $spacing-md;
-  color: white;
+  color: var(--text-primary);
   font-weight: 600;
   font-size: $font-size-lg;
 
   .logo {
-    width: 40px;
+    min-width: 40px;
     height: 40px;
     border-radius: 50%;
-    background: white;
+    background: var(--bg-secondary);
     display: flex;
     align-items: center;
     justify-content: center;
     font-weight: bold;
-    color: $moldovan-blue;
+    color: var(--text-primary);
+    box-sizing: border-box;
+    border: 2px solid var(--border-color);
   }
 }
 
 .nav {
   display: none;
+  align-items: center;
 
   @media (min-width: $breakpoint-lg) {
     display: flex;
@@ -53,18 +66,19 @@
   }
 
   .navLink {
-    color: white;
+    text-align: center;
+    color: var(--text-primary);
     font-weight: 500;
-    padding: $spacing-sm $spacing-md;
     border-radius: 4px;
     transition: $transition-fast;
+    padding: 2px 8px;
 
     &:hover {
-      background: rgba(255, 255, 255, 0.1);
+      background: var(--bg-tertiary);
     }
 
     &.active {
-      background: rgba(255, 255, 255, 0.2);
+      background: var(--bg-tertiary);
     }
   }
 }
@@ -75,74 +89,49 @@
   gap: $spacing-md;
 }
 
-.languageSwitcher {
-  display: flex;
-  gap: $spacing-xs;
-
-  .langButton {
-    background: rgba(255, 255, 255, 0.1);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    color: white;
-    padding: $spacing-xs $spacing-sm;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: $transition-fast;
-    font-size: 0.875rem;
-    font-weight: 500;
-
-    &:hover {
-      background: rgba(255, 255, 255, 0.2);
-    }
-
-    &.active {
-      background: white;
-      color: $moldovan-blue;
-    }
-  }
-}
-
-.mobileMenuButton {
-  display: block;
-  background: rgba(255, 255, 255, 0.1);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  color: white;
-  padding: $spacing-sm;
-  border-radius: 4px;
-  cursor: pointer;
-
-  @media (min-width: $breakpoint-lg) {
-    display: none;
-  }
-}
-
 .mobileMenu {
   position: absolute;
   top: 100%;
   left: 0;
   right: 0;
-  background: white;
+  background: var(--bg-primary);
   box-shadow: $shadow-lg;
-  border-top: 1px solid #e5e7eb;
+  border-top: 1px solid var(--border-color);
+  transition: background-color 0.3s ease, border-color 0.3s ease;
 
   .mobileNav {
     padding: $spacing-md;
+    border-bottom: 2px solid var(--border-color);
 
     .mobileNavLink {
       display: block;
       padding: $spacing-md;
-      color: #374151;
+      color: var(--text-primary);
       font-weight: 500;
-      border-bottom: 1px solid #f3f4f6;
-      transition: $transition-fast;
+      border-bottom: 1px solid var(--border-color);
+      transition: all 0.2s ease;
+      border-radius: 4px;
 
       &:hover {
-        background: #f9fafb;
-        color: $accent-color;
+        background: var(--bg-secondary);
+      }
+
+      &:focus {
+        outline: none;
+        box-shadow: 0 0 0 2px var(--accent-color);
       }
 
       &:last-child {
         border-bottom: none;
       }
+    }
+
+    .mobileLanguageDropdown {
+      padding: $spacing-md 0;
+      border-top: 1px solid var(--border-color);
+      margin-top: $spacing-sm;
+      display: flex;
+      justify-content: center;
     }
   }
 }

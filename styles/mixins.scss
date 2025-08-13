@@ -1,0 +1,44 @@
+@use "variables" as *;
+
+// Theme Mixins
+@mixin page-base {
+  min-height: calc(100vh - $navbar-height);
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  margin-top: $navbar-height;
+  //   padding: $spacing-2xl 0;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+@mixin card-base {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  padding: $spacing-xl;
+  transition: all 0.3s ease;
+}
+
+@mixin text-primary {
+  color: var(--text-primary);
+}
+
+@mixin text-secondary {
+  color: var(--text-secondary);
+}
+
+@mixin title-base {
+  font-size: $font-size-3xl;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: $spacing-lg;
+
+  @media (min-width: $breakpoint-md) {
+    font-size: 3rem;
+  }
+}
+
+@mixin description-base {
+  font-size: $font-size-lg;
+  color: var(--text-secondary);
+  line-height: 1.7;
+}

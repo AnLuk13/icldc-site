@@ -11,7 +11,15 @@
     "title": "Welcome to ICLDC",
     "subtitle": "Institute for Cultural Research and Development",
     "description": "We promote culture and traditions through research and innovation.",
-    "learnMore": "Learn More"
+    "learnMore": "Learn More",
+    "projectsChartTitle": "Our Project Impact",
+    "projectsChartSubtitle": "successful projects completed across various domains",
+    "projectsOverTime": "Projects Over Time",
+    "projectsByCategory": "Projects by Category",
+    "totalProjects": "Total Projects",
+    "yearsActive": "Years Active",
+    "successRate": "Success Rate",
+    "partners": "Partners"
   },
   "about": {
     "title": "About the Institute",

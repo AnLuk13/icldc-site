@@ -1,22 +1,26 @@
-"use client"
+"use client";
 
-import { useTranslations } from "next-intl"
-import styles from "./page.module.scss"
+import { useTranslations } from "next-intl";
+import ProjectsChart from "@/components/ProjectsChart/ProjectsChart";
+import VideoBackground from "@/components/VideoBackground/VideoBackground";
+import styles from "./page.module.scss";
 
 export default function HomePage() {
-  const t = useTranslations("home")
+  const t = useTranslations("home");
 
   return (
     <div className={styles.home}>
       <section className={styles.hero}>
-        <div className="container">
-          <div className={styles.heroContent}>
-            <h1 className={styles.title}>{t("title")}</h1>
-            <p className={styles.subtitle}>{t("subtitle")}</p>
-            <p className={styles.description}>{t("description")}</p>
-            <button className={styles.ctaButton}>{t("learnMore")}</button>
+        <VideoBackground src="/videoplayback.mp4" className={styles.videoHero}>
+          <div className="container">
+            <div className={styles.heroContent}>
+              <h1 className={styles.title}>{t("title")}</h1>
+              <p className={styles.subtitle}>{t("subtitle")}</p>
+              <p className={styles.description}>{t("description")}</p>
+              <button className={styles.ctaButton}>{t("learnMore")}</button>
+            </div>
           </div>
-        </div>
+        </VideoBackground>
       </section>
 
       <section className="section">
@@ -37,6 +41,8 @@ export default function HomePage() {
           </div>
         </div>
       </section>
+
+      <ProjectsChart />
     </div>
-  )
+  );
 }

@@ -11,7 +11,15 @@
     "title": "Bine ați venit la ICLDC",
     "subtitle": "Institutul pentru Cercetare și Dezvoltare Culturală",
     "description": "Promovăm cultura și tradițiile prin cercetare și inovație.",
-    "learnMore": "Aflați mai multe"
+    "learnMore": "Aflați mai multe",
+    "projectsChartTitle": "Impactul Proiectelor Noastre",
+    "projectsChartSubtitle": "proiecte finalizate cu succes în diverse domenii",
+    "projectsOverTime": "Proiecte în Timp",
+    "projectsByCategory": "Proiecte pe Categorii",
+    "totalProjects": "Total Proiecte",
+    "yearsActive": "Ani de Activitate",
+    "successRate": "Rata de Succes",
+    "partners": "Parteneri"
   },
   "about": {
     "title": "Despre Institut",
