@@ -1,10 +1,23 @@
-"use client"
+"use client";
 
-import { useTranslations } from "next-intl"
-import styles from "./page.module.scss"
+import { useEffect, useState } from "react";
+import { useTranslations, useLocale } from "next-intl";
+import type { Partner, Language } from "@/lib/types";
+import { resolveText } from "@/lib/i18n";
+import styles from "./page.module.scss";
 
 export default function PartnersPage() {
-  const t = useTranslations("partners")
+  const t = useTranslations("partners");
+  const locale = useLocale() as Language;
+  const [partners, setPartners] = useState<Partner[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetch("/api/partners")
+      .then((r) => r.json())
+      .then(setPartners)
+      .finally(() => setLoading(false));
+  }, []);
 
   return (
     <div className={styles.partners}>
@@ -15,49 +28,52 @@ export default function PartnersPage() {
             <p className={styles.description}>{t("description")}</p>
           </div>
 
-          <div className={styles.partnerSections}>
-            <div className={styles.section}>
-              <h2 className="accent-text">{t("academic")}</h2>
-              <div className={styles.partnerGrid}>
-                <div className={styles.partnerCard}>
+          {loading ? (
+            <p className={styles.loading}>{t("loading")}</p>
+          ) : partners.length === 0 ? (
+            <p className={styles.noPartners}>{t("noPartners")}</p>
+          ) : (
+            <div className={styles.partnerGrid}>
+              {partners.map((partner) => (
+                <div key={partner._id} className={styles.partnerCard}>
                   <div className={styles.partnerLogo}>
-                    <img src="/placeholder.svg?height=80&width=80" alt="Partner Logo" />
+                    {partner.logo ? (
+                      <img
+                        src={partner.logo}
+                        alt={resolveText(partner.name, locale)}
+                      />
+                    ) : (
+                      <img
+                        src="/placeholder.svg?height=80&width=80"
+                        alt={resolveText(partner.name, locale)}
+                      />
+                    )}
                   </div>
-                  <h3>Universitatea de Stat din Moldova</h3>
-                  <p>Colaborare în domeniul cercetării culturale și educației.</p>
+                  <h3>{resolveText(partner.name, locale)}</h3>
+                  {partner.description && (
+                    <p>{resolveText(partner.description, locale)}</p>
+                  )}
+                  {partner.projects && partner.projects.length > 0 && (
+                    <span className={styles.projectsBadge}>
+                      {partner.projects.length} {t("projectsCount")}
+                    </span>
+                  )}
+                  {partner.website && (
+                    <a
+                      href={partner.website}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className={styles.partnerLink}
+                    >
+                      {partner.website.replace(/^https?:\/\//, "")}
+                    </a>
+                  )}
                 </div>
-                <div className={styles.partnerCard}>
-                  <div className={styles.partnerLogo}>
-                    <img src="/placeholder.svg?height=80&width=80" alt="Partner Logo" />
-                  </div>
-                  <h3>Academia de Științe a Moldovei</h3>
-                  <p>Parteneriat strategic pentru proiecte de cercetare avansată.</p>
-                </div>
-              </div>
+              ))}
             </div>
-
-            <div className={styles.section}>
-              <h2 className="accent-text">{t("institutional")}</h2>
-              <div className={styles.partnerGrid}>
-                <div className={styles.partnerCard}>
-                  <div className={styles.partnerLogo}>
-                    <img src="/placeholder.svg?height=80&width=80" alt="Partner Logo" />
-                  </div>
-                  <h3>Ministerul Culturii</h3>
-                  <p>Suport instituțional pentru inițiativele culturale naționale.</p>
-                </div>
-                <div className={styles.partnerCard}>
-                  <div className={styles.partnerLogo}>
-                    <img src="/placeholder.svg?height=80&width=80" alt="Partner Logo" />
-                  </div>
-                  <h3>UNESCO Moldova</h3>
-                  <p>Colaborare pentru protejarea patrimoniului cultural.</p>
-                </div>
-              </div>
-            </div>
-          </div>
+          )}
         </div>
       </section>
     </div>
-  )
+  );
 }

@@ -14,10 +14,10 @@ export default function HomePage() {
         <VideoBackground src="/videoplayback.mp4" className={styles.videoHero}>
           <div className="container">
             <div className={styles.heroContent}>
+              <img src="/logo.svg" alt="ICLDC" className={styles.heroLogo} />
               <h1 className={styles.title}>{t("title")}</h1>
               <p className={styles.subtitle}>{t("subtitle")}</p>
               <p className={styles.description}>{t("description")}</p>
-              <button className={styles.ctaButton}>{t("learnMore")}</button>
             </div>
           </div>
         </VideoBackground>

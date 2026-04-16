@@ -13,6 +13,14 @@
   margin-right: auto;
 }
 
+.headerLogo {
+  display: block;
+  width: 90px;
+  height: 90px;
+  object-fit: contain;
+  margin: 0 auto $spacing-lg;
+}
+
 .title {
   font-size: $font-size-3xl;
   font-weight: 700;
@@ -34,6 +42,7 @@
   display: grid;
   grid-template-columns: 1fr;
   gap: $spacing-2xl;
+  margin-bottom: $spacing-2xl;
 
   @media (min-width: $breakpoint-md) {
     grid-template-columns: repeat(2, 1fr);
@@ -62,4 +71,37 @@
     line-height: 1.7;
     font-size: $font-size-lg;
   }
+}
+
+.section {
+  margin-bottom: $spacing-2xl;
+}
+
+.sectionTitle {
+  font-size: $font-size-2xl;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: $spacing-lg;
+}
+
+.list {
+  list-style: none;
+  padding: 0;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: $spacing-md;
+
+  @media (min-width: $breakpoint-md) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.listItem {
+  background: var(--bg-secondary);
+  padding: $spacing-lg;
+  border-radius: 8px;
+  border-left: 3px solid $accent-color;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  font-size: $font-size-base;
 }

@@ -17,11 +17,12 @@ const Navbar = () => {
 
   const navigation = [
     { name: t("home"), href: "/" },
-    { name: t("about"), href: "/about" },
     { name: t("projects"), href: "/projects" },
     { name: t("partners"), href: "/partners" },
     { name: t("events"), href: "/events" },
+    { name: t("news"), href: "/news" },
     { name: t("contact"), href: "/contact" },
+    { name: t("about"), href: "/about" },
   ];
 
   const isActive = (href: string) => {
@@ -36,11 +37,7 @@ const Navbar = () => {
       <div className={styles.container}>
         <Link href="/" className={styles.brand}>
           <div className={styles.logo}>
-            <img
-              src="https://picsum.photos/200/300"
-              alt="ICLDC Logo"
-              className={styles.logo}
-            />
+            <img src="/logo.svg" alt="ICLDC Logo" className={styles.logo} />
           </div>
           <span>ICLDC</span>
         </Link>

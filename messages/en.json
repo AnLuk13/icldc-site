@@ -1,17 +1,17 @@
 {
   "navigation": {
     "home": "HOME",
-    "about": "ABOUT INSTITUTE",
-    "projects": "OUR PROJECTS",
+    "projects": "PROJECTS",
     "partners": "PARTNERS",
     "events": "EVENTS",
-    "contact": "CONTACT"
+    "news": "NEWS",
+    "contact": "CONTACT",
+    "about": "ABOUT"
   },
   "home": {
     "title": "Welcome to ICLDC",
-    "subtitle": "Institute for Cultural Research and Development",
+    "subtitle": "Institute for Legislative Creation and Comparative Law",
     "description": "We promote culture and traditions through research and innovation.",
-    "learnMore": "Learn More",
     "projectsChartTitle": "Our Project Impact",
     "projectsChartSubtitle": "successful projects completed across various domains",
     "projectsOverTime": "Projects Over Time",
@@ -23,29 +23,89 @@
   },
   "about": {
     "title": "About the Institute",
-    "description": "ICLDC is an institution dedicated to cultural research and development, focusing on preserving and promoting cultural heritage.",
+    "description": "The Public Association \"Institute for Legislative Creation and Comparative Law\" is a non-commercial organization voluntarily constituted for the realization of non-commercial purposes, in accordance with the Constitution of the Republic of Moldova and Law No. 86 of June 11, 2020.",
     "mission": "Our Mission",
-    "missionText": "To contribute to cultural development through quality research and innovative projects.",
+    "missionText": "Supporting and studying knowledge-based society through legal, cultural, and scientific analysis of national and universal socio-legal processes, as well as developing socio-legal research across various domains.",
     "vision": "Our Vision",
-    "visionText": "To be a center of excellence in cultural research at regional and international levels."
+    "visionText": "To be a center of excellence in socio-legal research, promoting democracy, human rights, national and civic values and interests, partnership, and the rule of law at national and international levels.",
+    "principlesTitle": "Principles of Activity",
+    "principles": [
+      "Voluntary constitution — no one can be compelled to found or become a member of the association",
+      "Freedom to establish internal structure, goals, and activities",
+      "Freedom to solicit, receive, and use financial and material means from within the country or abroad",
+      "Promotion of national and civic values and interests, democracy, and the rule of law",
+      "Transparent activity — publication of the annual activity report",
+      "Avoidance of conflicts of interest"
+    ],
+    "goalsTitle": "Goals and Objectives",
+    "goals": [
+      "Development and implementation of socio-legal research programs at national and international levels",
+      "Establishment and consolidation of national and international scientific cooperation",
+      "Promotion of democracy and human rights",
+      "Stimulation of civic spirit and activism, including participation in decision-making processes",
+      "Editorial activity and dissemination of information",
+      "Supporting the involvement of scientific communities and professional associations in relevant programs",
+      "Representation and support of members' professional interests",
+      "Promotion of human dignity and elimination of all forms of discrimination"
+    ],
+    "activitiesTitle": "Areas of Activity",
+    "activities": [
+      "Implementation and promotion of civic, economic, cultural, and educational initiatives",
+      "Conducting scientific and training activities",
+      "Financing programs through grants, scholarships, and financial aid",
+      "Representing and defending the legitimate interests of members",
+      "Development and expertise of legislative act projects",
+      "Creation of enterprises and organizations with legal entity rights"
+    ]
   },
   "projects": {
     "title": "Our Projects",
     "description": "Explore our cultural research and development projects.",
     "currentProjects": "Current Projects",
-    "completedProjects": "Completed Projects"
+    "completedProjects": "Completed Projects",
+    "statusActive": "In Progress",
+    "statusPlanned": "Planned",
+    "statusCompleted": "Completed",
+    "startDate": "Started",
+    "endDate": "Ended",
+    "noCurrentProjects": "No current projects at the moment.",
+    "noCompletedProjects": "No completed projects yet.",
+    "loading": "Loading projects...",
+    "partners": "{count, plural, one {partner} other {partners}}"
   },
   "partners": {
     "title": "Our Partners",
     "description": "We collaborate with prestigious institutions to achieve our common goals.",
     "academic": "Academic Partners",
-    "institutional": "Institutional Partners"
+    "institutional": "Institutional Partners",
+    "noPartners": "No partners found.",
+    "projectsCount": "projects",
+    "loading": "Loading partners..."
   },
   "events": {
     "title": "Events",
     "description": "Stay updated with our events and activities.",
     "upcoming": "Upcoming Events",
-    "past": "Past Events"
+    "past": "Past Events",
+    "loading": "Loading events...",
+    "organizer": "Organizer",
+    "to": "to",
+    "register": "Register",
+    "noUpcoming": "No upcoming events at the moment.",
+    "noPast": "No past events."
+  },
+  "news": {
+    "title": "News",
+    "description": "Latest news and updates from the institute.",
+    "loading": "Loading news...",
+    "noNews": "No news articles found.",
+    "readMore": "Read more",
+    "author": "Author",
+    "category": "Category",
+    "publishedAt": "Published",
+    "documents": "Documents",
+    "documentsCount": "docs",
+    "view": "View"
   },
   "contact": {
     "title": "Contact",

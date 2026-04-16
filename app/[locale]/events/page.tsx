@@ -1,10 +1,98 @@
-"use client"
+"use client";
 
-import { useTranslations } from "next-intl"
-import styles from "./page.module.scss"
+import { useEffect, useState } from "react";
+import { useTranslations, useLocale } from "next-intl";
+import { format } from "date-fns";
+import type { Event, Language } from "@/lib/types";
+import { resolveText } from "@/lib/i18n";
+import styles from "./page.module.scss";
 
 export default function EventsPage() {
-  const t = useTranslations("events")
+  const t = useTranslations("events");
+  const locale = useLocale() as Language;
+  const [events, setEvents] = useState<Event[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetch("/api/events")
+      .then((r) => r.json())
+      .then(setEvents)
+      .finally(() => setLoading(false));
+  }, []);
+
+  const now = new Date();
+  const upcoming = events.filter(
+    (e) => e.startDate && new Date(e.startDate) >= now,
+  );
+  const past = events.filter(
+    (e) => !e.startDate || new Date(e.startDate) < now,
+  );
+
+  const renderEventCard = (event: Event) => (
+    <div key={event._id} className={styles.eventCard}>
+      <div className={styles.eventBody}>
+        <div className={styles.eventDate}>
+          {event.startDate && (
+            <>
+              <span className={styles.day}>
+                {format(new Date(event.startDate), "dd")}
+              </span>
+              <span className={styles.month}>
+                {format(new Date(event.startDate), "MMM").toUpperCase()}
+              </span>
+              {event.endDate && (
+                <span className={styles.endDate}>
+                  {t("to")} {format(new Date(event.endDate), "dd MMM")}
+                </span>
+              )}
+            </>
+          )}
+        </div>
+        <div className={styles.eventContent}>
+          <h3>{resolveText(event.name, locale)}</h3>
+          {event.description && (
+            <p>{resolveText(event.description, locale)}</p>
+          )}
+          <div className={styles.eventMeta}>
+            {event.location && (
+              <span className={styles.metaItem}>
+                📍 {event.location}
+              </span>
+            )}
+            {event.organizer && (
+              <span className={styles.metaItem}>
+                🏛 {t("organizer")}: {event.organizer}
+              </span>
+            )}
+          </div>
+          {event.tags && event.tags.length > 0 && (
+            <div className={styles.eventTags}>
+              {event.tags.map((tag) => (
+                <span key={tag} className={styles.tag}>
+                  {tag}
+                </span>
+              ))}
+            </div>
+          )}
+          {event.registrationLink && (
+            <a
+              href={event.registrationLink}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={styles.registerLink}
+            >
+              {t("register")}
+            </a>
+          )}
+        </div>
+      </div>
+      {event.bannerImage && (
+        <div className={styles.eventBanner}>
+          <img src={event.bannerImage} alt={resolveText(event.name, locale)} />
+        </div>
+      )}
+    </div>
+  );
 
   return (
     <div className={styles.events}>
@@ -15,55 +103,35 @@ export default function EventsPage() {
             <p className={styles.description}>{t("description")}</p>
           </div>
 
-          <div className={styles.eventSections}>
-            <div className={styles.section}>
-              <h2 className="accent-text">{t("upcoming")}</h2>
-              <div className={styles.eventList}>
-                <div className={styles.eventCard}>
-                  <div className={styles.eventDate}>
-                    <span className={styles.day}>15</span>
-                    <span className={styles.month}>MAR</span>
+          {loading ? (
+            <p className={styles.loading}>{t("loading")}</p>
+          ) : (
+            <div className={styles.eventSections}>
+              <div className={styles.section}>
+                <h2 className="accent-text">{t("upcoming")}</h2>
+                {upcoming.length === 0 ? (
+                  <p className={styles.noEvents}>{t("noUpcoming")}</p>
+                ) : (
+                  <div className={styles.eventList}>
+                    {upcoming.map(renderEventCard)}
                   </div>
-                  <div className={styles.eventContent}>
-                    <h3>Conferința Anuală de Cercetare Culturală</h3>
-                    <p>O întâlnire a cercetătorilor și specialiștilor în domeniul cultural.</p>
-                    <span className={styles.eventLocation}>Chișinău, Moldova</span>
-                  </div>
-                </div>
+                )}
+              </div>
 
-                <div className={styles.eventCard}>
-                  <div className={styles.eventDate}>
-                    <span className={styles.day}>22</span>
-                    <span className={styles.month}>APR</span>
+              <div className={styles.section}>
+                <h2 className="accent-text">{t("past")}</h2>
+                {past.length === 0 ? (
+                  <p className={styles.noEvents}>{t("noPast")}</p>
+                ) : (
+                  <div className={styles.eventList}>
+                    {past.map(renderEventCard)}
                   </div>
-                  <div className={styles.eventContent}>
-                    <h3>Workshop: Digitizarea Patrimoniului</h3>
-                    <p>Sesiune practică despre metodele moderne de digitizare.</p>
-                    <span className={styles.eventLocation}>Online</span>
-                  </div>
-                </div>
+                )}
               </div>
             </div>
-
-            <div className={styles.section}>
-              <h2 className="accent-text">{t("past")}</h2>
-              <div className={styles.eventList}>
-                <div className={styles.eventCard}>
-                  <div className={styles.eventDate}>
-                    <span className={styles.day}>10</span>
-                    <span className={styles.month}>FEB</span>
-                  </div>
-                  <div className={styles.eventContent}>
-                    <h3>Simpozion: Tradițiile Culturale Contemporane</h3>
-                    <p>Discuții despre rolul tradițiilor în societatea modernă.</p>
-                    <span className={styles.eventLocation}>Chișinău, Moldova</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+          )}
         </div>
       </section>
     </div>
-  )
+  );
 }

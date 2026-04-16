@@ -42,8 +42,8 @@
   font-size: $font-size-lg;
 
   .logo {
-    min-width: 40px;
-    height: 40px;
+    min-width: 50px;
+    height: 50px;
     border-radius: 50%;
     background: var(--bg-secondary);
     display: flex;
@@ -52,7 +52,6 @@
     font-weight: bold;
     color: var(--text-primary);
     box-sizing: border-box;
-    border: 2px solid var(--border-color);
   }
 }
 
@@ -97,7 +96,9 @@
   background: var(--bg-primary);
   box-shadow: $shadow-lg;
   border-top: 1px solid var(--border-color);
-  transition: background-color 0.3s ease, border-color 0.3s ease;
+  transition:
+    background-color 0.3s ease,
+    border-color 0.3s ease;
 
   .mobileNav {
     padding: $spacing-md;
