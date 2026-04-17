@@ -80,6 +80,7 @@
     "institutional": "Institutional Partners",
     "noPartners": "No partners found.",
     "projectsCount": "projects",
+    "projectsLabel": "Projects",
     "loading": "Loading partners..."
   },
   "events": {

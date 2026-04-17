@@ -1,34 +1,39 @@
-"use client";
-
-import { useEffect, useState } from "react";
-import { useTranslations, useLocale } from "next-intl";
+import { getTranslations, getLocale } from "next-intl/server";
 import { format } from "date-fns";
-import type { Project, Language } from "@/lib/types";
+import { getProjects } from "@/lib/firebase/projects";
 import { resolveText } from "@/lib/i18n";
+import type { Project, Language } from "@/lib/types";
 import styles from "./page.module.scss";
 
-export default function ProjectsPage() {
-  const t = useTranslations("projects");
-  const locale = useLocale() as Language;
-  const [projects, setProjects] = useState<Project[]>([]);
-  const [loading, setLoading] = useState(true);
+export const revalidate = 3600;
 
-  useEffect(() => {
-    fetch("/api/projects")
-      .then((r) => r.json())
-      .then(setProjects)
-      .finally(() => setLoading(false));
-  }, []);
+export default async function ProjectsPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ status?: string; partner?: string }>;
+}) {
+  const { status, partner } = await searchParams;
 
-  const current = projects.filter(
-    (p) => p.status === "ongoing" || p.status === "planned",
-  );
-  const completed = projects.filter((p) => p.status === "completed");
+  const [t, locale, projects] = await Promise.all([
+    getTranslations("projects"),
+    getLocale(),
+    getProjects({
+      status: status as Project["status"] | undefined,
+      partnerId: partner,
+    }),
+  ]);
+
+  const current = status
+    ? projects
+    : projects.filter((p) => p.status === "ongoing" || p.status === "planned");
+  const completed = status
+    ? []
+    : projects.filter((p) => p.status === "completed");
 
   const renderProjectCard = (project: Project) => (
-    <div key={project._id} className={styles.projectCard}>
+    <div key={project.id} className={styles.projectCard}>
       <div className={styles.cardTop}>
-        <h3>{resolveText(project.name, locale)}</h3>
+        <h3>{resolveText(project.name, locale as Language)}</h3>
         <span
           className={
             project.status === "completed"
@@ -46,19 +51,18 @@ export default function ProjectsPage() {
         </span>
       </div>
 
-      <p>{resolveText(project.description, locale)}</p>
+      <p>{resolveText(project.description, locale as Language)}</p>
 
       {(project.startDate || project.endDate) && (
         <div className={styles.projectDates}>
           {project.startDate && (
             <span>
-              {t("startDate")}:{" "}
-              {format(new Date(project.startDate), "MMM yyyy")}
+              {t("startDate")}: {format(project.startDate, "MMM yyyy")}
             </span>
           )}
           {project.endDate && (
             <span>
-              {t("endDate")}: {format(new Date(project.endDate), "MMM yyyy")}
+              {t("endDate")}: {format(project.endDate, "MMM yyyy")}
             </span>
           )}
         </div>
@@ -75,9 +79,32 @@ export default function ProjectsPage() {
       )}
 
       {project.partners && project.partners.length > 0 && (
-        <div className={styles.projectMeta}>
-          🤝 {project.partners.length}{" "}
-          {t("partners", { count: project.partners.length })}
+        <div className={styles.partnersList}>
+          {project.partners.map((partner) => (
+            <div className={styles.partnerChips} key={partner.id}>
+              {partner.logo ? (
+                <img
+                  src={partner.logo}
+                  alt={resolveText(partner.name, locale as Language)}
+                  className={styles.partnerChipLogo}
+                />
+              ) : null}
+              <div key={partner.id} className={styles.partnerChip}>
+                <span>{resolveText(partner.name, locale as Language)}</span>
+                {partner.website && (
+                  <a
+                    href={partner.website}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={styles.partnerChipLink}
+                    title={partner.website}
+                  >
+                    ↗
+                  </a>
+                )}
+              </div>
+            </div>
+          ))}
         </div>
       )}
 
@@ -99,8 +126,14 @@ export default function ProjectsPage() {
             <p className={styles.description}>{t("description")}</p>
           </div>
 
-          {loading ? (
-            <p className={styles.loading}>{t("loading")}</p>
+          {status ? (
+            <div className={styles.projectGrid}>
+              {projects.length === 0 ? (
+                <p className={styles.noProjects}>{t("noCurrentProjects")}</p>
+              ) : (
+                projects.map(renderProjectCard)
+              )}
+            </div>
           ) : (
             <div className={styles.projectSections}>
               <div className={styles.section}>

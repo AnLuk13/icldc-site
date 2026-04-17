@@ -1,23 +1,17 @@
-"use client";
-
-import { useEffect, useState } from "react";
-import { useTranslations, useLocale } from "next-intl";
-import type { Partner, Language } from "@/lib/types";
+import { getTranslations, getLocale } from "next-intl/server";
+import { getPartners } from "@/lib/firebase/partners";
 import { resolveText } from "@/lib/i18n";
+import type { Language, Partner } from "@/lib/types";
 import styles from "./page.module.scss";
 
-export default function PartnersPage() {
-  const t = useTranslations("partners");
-  const locale = useLocale() as Language;
-  const [partners, setPartners] = useState<Partner[]>([]);
-  const [loading, setLoading] = useState(true);
+export const revalidate = 3600;
 
-  useEffect(() => {
-    fetch("/api/partners")
-      .then((r) => r.json())
-      .then(setPartners)
-      .finally(() => setLoading(false));
-  }, []);
+export default async function PartnersPage() {
+  const [t, locale, partners] = await Promise.all([
+    getTranslations("partners"),
+    getLocale(),
+    getPartners(),
+  ]);
 
   return (
     <div className={styles.partners}>
@@ -28,46 +22,68 @@ export default function PartnersPage() {
             <p className={styles.description}>{t("description")}</p>
           </div>
 
-          {loading ? (
-            <p className={styles.loading}>{t("loading")}</p>
-          ) : partners.length === 0 ? (
+          {partners.length === 0 ? (
             <p className={styles.noPartners}>{t("noPartners")}</p>
           ) : (
             <div className={styles.partnerGrid}>
               {partners.map((partner) => (
-                <div key={partner._id} className={styles.partnerCard}>
-                  <div className={styles.partnerLogo}>
+                <div key={partner.id} className={styles.partnerCard}>
+                  <div className={styles.partnerCardHeader}>
                     {partner.logo ? (
-                      <img
-                        src={partner.logo}
-                        alt={resolveText(partner.name, locale)}
-                      />
+                      <div className={styles.partnerLogo}>
+                        <img
+                          className={styles.partnerLogo}
+                          src={partner.logo}
+                          alt={resolveText(partner.name, locale as Language)}
+                        />
+                      </div>
                     ) : (
-                      <img
-                        src="/placeholder.svg?height=80&width=80"
-                        alt={resolveText(partner.name, locale)}
-                      />
+                      <div className={styles.partnerLogoPlaceholder}>🤝</div>
+                    )}
+                    <div className={styles.partnerCardMeta}>
+                      <h3>{resolveText(partner.name, locale as Language)}</h3>
+                      {partner.website && (
+                        <a
+                          href={partner.website}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className={styles.partnerLink}
+                        >
+                          ↗ {partner.website.replace(/^https?:\/\//, "")}
+                        </a>
+                      )}
+                    </div>
+                  </div>
+                  <div className={styles.partnerCardBody}>
+                    {partner.description && (
+                      <p>
+                        {resolveText(partner.description, locale as Language)}
+                      </p>
+                    )}
+                    {partner.projects && partner.projects.length > 0 && (
+                      <div className={styles.projectsList}>
+                        <span className={styles.projectsLabel}>
+                          {t("projectsLabel")}
+                        </span>
+                        <div className={styles.projectChips}>
+                          {partner.projects.map((project) => (
+                            <span
+                              key={project.id}
+                              className={
+                                project.status === "completed"
+                                  ? styles.projectChipCompleted
+                                  : project.status === "planned"
+                                    ? styles.projectChipPlanned
+                                    : styles.projectChip
+                              }
+                            >
+                              {resolveText(project.name, locale as Language)}
+                            </span>
+                          ))}
+                        </div>
+                      </div>
                     )}
                   </div>
-                  <h3>{resolveText(partner.name, locale)}</h3>
-                  {partner.description && (
-                    <p>{resolveText(partner.description, locale)}</p>
-                  )}
-                  {partner.projects && partner.projects.length > 0 && (
-                    <span className={styles.projectsBadge}>
-                      {partner.projects.length} {t("projectsCount")}
-                    </span>
-                  )}
-                  {partner.website && (
-                    <a
-                      href={partner.website}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className={styles.partnerLink}
-                    >
-                      {partner.website.replace(/^https?:\/\//, "")}
-                    </a>
-                  )}
                 </div>
               ))}
             </div>

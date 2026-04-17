@@ -1,63 +1,51 @@
-"use client";
-
-import { useEffect, useState } from "react";
-import { useTranslations, useLocale } from "next-intl";
+import { getTranslations, getLocale } from "next-intl/server";
 import { format } from "date-fns";
-import type { Event, Language } from "@/lib/types";
+import { getEvents } from "@/lib/firebase/events";
 import { resolveText } from "@/lib/i18n";
+import type { Event, Language } from "@/lib/types";
 import styles from "./page.module.scss";
 
-export default function EventsPage() {
-  const t = useTranslations("events");
-  const locale = useLocale() as Language;
-  const [events, setEvents] = useState<Event[]>([]);
-  const [loading, setLoading] = useState(true);
+export const revalidate = 3600;
 
-  useEffect(() => {
-    fetch("/api/events")
-      .then((r) => r.json())
-      .then(setEvents)
-      .finally(() => setLoading(false));
-  }, []);
+export default async function EventsPage() {
+  const [t, locale, events] = await Promise.all([
+    getTranslations("events"),
+    getLocale(),
+    getEvents(),
+  ]);
 
   const now = new Date();
-  const upcoming = events.filter(
-    (e) => e.startDate && new Date(e.startDate) >= now,
-  );
-  const past = events.filter(
-    (e) => !e.startDate || new Date(e.startDate) < now,
-  );
+  const upcoming = events.filter((e) => e.startDate && e.startDate >= now);
+  const past = events.filter((e) => !e.startDate || e.startDate < now);
 
   const renderEventCard = (event: Event) => (
-    <div key={event._id} className={styles.eventCard}>
+    <div key={event.id} className={styles.eventCard}>
       <div className={styles.eventBody}>
         <div className={styles.eventDate}>
           {event.startDate && (
             <>
               <span className={styles.day}>
-                {format(new Date(event.startDate), "dd")}
+                {format(event.startDate, "dd")}
               </span>
               <span className={styles.month}>
-                {format(new Date(event.startDate), "MMM").toUpperCase()}
+                {format(event.startDate, "MMM").toUpperCase()}
               </span>
               {event.endDate && (
                 <span className={styles.endDate}>
-                  {t("to")} {format(new Date(event.endDate), "dd MMM")}
+                  {t("to")} {format(event.endDate, "dd MMM")}
                 </span>
               )}
             </>
           )}
         </div>
         <div className={styles.eventContent}>
-          <h3>{resolveText(event.name, locale)}</h3>
+          <h3>{resolveText(event.name, locale as Language)}</h3>
           {event.description && (
-            <p>{resolveText(event.description, locale)}</p>
+            <p>{resolveText(event.description, locale as Language)}</p>
           )}
           <div className={styles.eventMeta}>
             {event.location && (
-              <span className={styles.metaItem}>
-                📍 {event.location}
-              </span>
+              <span className={styles.metaItem}>📍 {event.location}</span>
             )}
             {event.organizer && (
               <span className={styles.metaItem}>
@@ -88,7 +76,10 @@ export default function EventsPage() {
       </div>
       {event.bannerImage && (
         <div className={styles.eventBanner}>
-          <img src={event.bannerImage} alt={resolveText(event.name, locale)} />
+          <img
+            src={event.bannerImage}
+            alt={resolveText(event.name, locale as Language)}
+          />
         </div>
       )}
     </div>
@@ -103,33 +94,29 @@ export default function EventsPage() {
             <p className={styles.description}>{t("description")}</p>
           </div>
 
-          {loading ? (
-            <p className={styles.loading}>{t("loading")}</p>
-          ) : (
-            <div className={styles.eventSections}>
-              <div className={styles.section}>
-                <h2 className="accent-text">{t("upcoming")}</h2>
-                {upcoming.length === 0 ? (
-                  <p className={styles.noEvents}>{t("noUpcoming")}</p>
-                ) : (
-                  <div className={styles.eventList}>
-                    {upcoming.map(renderEventCard)}
-                  </div>
-                )}
-              </div>
-
-              <div className={styles.section}>
-                <h2 className="accent-text">{t("past")}</h2>
-                {past.length === 0 ? (
-                  <p className={styles.noEvents}>{t("noPast")}</p>
-                ) : (
-                  <div className={styles.eventList}>
-                    {past.map(renderEventCard)}
-                  </div>
-                )}
-              </div>
+          <div className={styles.eventSections}>
+            <div className={styles.section}>
+              <h2 className="accent-text">{t("upcoming")}</h2>
+              {upcoming.length === 0 ? (
+                <p className={styles.noEvents}>{t("noUpcoming")}</p>
+              ) : (
+                <div className={styles.eventList}>
+                  {upcoming.map(renderEventCard)}
+                </div>
+              )}
             </div>
-          )}
+
+            <div className={styles.section}>
+              <h2 className="accent-text">{t("past")}</h2>
+              {past.length === 0 ? (
+                <p className={styles.noEvents}>{t("noPast")}</p>
+              ) : (
+                <div className={styles.eventList}>
+                  {past.map(renderEventCard)}
+                </div>
+              )}
+            </div>
+          </div>
         </div>
       </section>
     </div>
