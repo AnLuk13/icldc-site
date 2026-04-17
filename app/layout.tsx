@@ -23,7 +23,13 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <div style={{ minHeight: "100vh", display: "flex", flexDirection: "column" }}>
+          <div
+            style={{
+              minHeight: "100vh",
+              display: "flex",
+              flexDirection: "column",
+            }}
+          >
             {children}
             <Footer />
           </div>

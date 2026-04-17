@@ -19,7 +19,13 @@
     "totalProjects": "Total Projects",
     "yearsActive": "Years Active",
     "successRate": "Success Rate",
-    "partners": "Partners"
+    "partners": "Partners",
+    "feature1Title": "Research",
+    "feature1Desc": "Innovative research projects in the cultural domain",
+    "feature2Title": "Development",
+    "feature2Desc": "Building cultural capacities and competencies",
+    "feature3Title": "Collaboration",
+    "feature3Desc": "Strategic partnerships for maximum impact"
   },
   "about": {
     "title": "About the Institute",

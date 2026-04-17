@@ -8,6 +8,12 @@ import styles from "./page.module.scss";
 export default function HomePage() {
   const t = useTranslations("home");
 
+  const features = [
+    { title: t("feature1Title"), desc: t("feature1Desc") },
+    { title: t("feature2Title"), desc: t("feature2Desc") },
+    { title: t("feature3Title"), desc: t("feature3Desc") },
+  ];
+
   return (
     <div className={styles.home}>
       <section className={styles.hero}>
@@ -26,23 +32,17 @@ export default function HomePage() {
       <section className="section">
         <div className="container">
           <div className={styles.features}>
-            <div className={styles.feature}>
-              <h3>Cercetare</h3>
-              <p>Proiecte de cercetare inovatoare în domeniul cultural</p>
-            </div>
-            <div className={styles.feature}>
-              <h3>Dezvoltare</h3>
-              <p>Dezvoltarea capacităților și competențelor culturale</p>
-            </div>
-            <div className={styles.feature}>
-              <h3>Colaborare</h3>
-              <p>Parteneriate strategice pentru impact maxim</p>
-            </div>
+            {features.map((feature, index) => (
+              <div key={index} className={styles.feature}>
+                <h3>{feature.title}</h3>
+                <p>{feature.desc}</p>
+              </div>
+            ))}
           </div>
         </div>
       </section>
 
-      <ProjectsChart />
+      {/* <ProjectsChart /> */}
     </div>
   );
 }

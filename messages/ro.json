@@ -19,7 +19,13 @@
     "totalProjects": "Total Proiecte",
     "yearsActive": "Ani de Activitate",
     "successRate": "Rata de Succes",
-    "partners": "Parteneri"
+    "partners": "Parteneri",
+    "feature1Title": "Cercetare",
+    "feature1Desc": "Proiecte de cercetare inovatoare în domeniul cultural",
+    "feature2Title": "Dezvoltare",
+    "feature2Desc": "Dezvoltarea capacităților și competențelor culturale",
+    "feature3Title": "Colaborare",
+    "feature3Desc": "Parteneriate strategice pentru impact maxim"
   },
   "about": {
     "title": "Despre Institut",
