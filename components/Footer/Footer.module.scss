@@ -62,9 +62,11 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  gap: $spacing-sm;
 
   @media (min-width: $breakpoint-md) {
     align-items: flex-end;
+    gap: $spacing-md;
   }
 }
 
@@ -87,6 +89,7 @@
 }
 
 .developerLink {
+  padding: 4px 8px;
   display: flex;
   align-items: center;
   gap: $spacing-sm;
